@@ -1,0 +1,39 @@
+NAME HERE — GITHUB PAGES + SUPABASE
+
+SUPABASE PROJECT
+Project URL:
+https://pjwinjmhamcrnpvyqvma.supabase.co
+
+The publishable key is already configured in supabase-config.js.
+It is a public browser key, not a database password or service-role secret.
+
+WHAT IS ALREADY CONFIGURED
+- supabase-config.js contains your Supabase project URL and publishable key.
+- account.html + auth.js: registration, login, password reset, sign-out, account ticket list.
+- tickets.html + auth.js: authenticated ticket submission.
+- admin.html + auth.js: administrator-only ticket management and replies.
+- supabase-setup.sql: database tables, trigger, admin helper and Row Level Security policies.
+
+REMAINING SETUP — YOU MUST DO THESE IN YOUR SUPABASE DASHBOARD
+1. Open https://supabase.com/dashboard/project/pjwinjmhamcrnpvyqvma/sql/new
+   (or open your project > SQL Editor > New query).
+2. Open supabase-setup.sql from this folder, copy ALL of its contents into the SQL Editor, and click Run.
+3. Open Authentication > URL Configuration. Set Site URL to your actual GitHub Pages URL, for example:
+   https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPOSITORY/
+   Add that same URL under Redirect URLs. Replace the example with your real URL.
+4. Upload ALL files and folders from this ZIP to the ROOT of your GitHub Pages repository and publish the site.
+5. Open your published website and register an account with the email you want to use as the administrator. Confirm the email if confirmation is enabled.
+6. In Supabase SQL Editor, run the following after replacing the email with the exact administrator email:
+
+   insert into public.admin_users(user_id)
+   select id from auth.users where email = 'you@example.com'
+   on conflict do nothing;
+
+7. Sign out and sign in again, then visit /admin.html on your published website.
+
+IMPORTANT
+- I cannot access your Supabase account or run SQL in your project from this ZIP. You must complete the dashboard steps above.
+- Never put a service_role key, secret key, database password or SMTP password in website files or send them in chat.
+- The publishable key in supabase-config.js is designed for browser use. Row Level Security in the SQL script is essential.
+- Forum and Marketplace pages are still demo/static pages; this ZIP currently connects authentication and support tickets, not marketplace purchases or forum posts.
+- Configure a real SMTP provider before relying on production email delivery. Review your privacy/terms pages and test with a non-admin account.
